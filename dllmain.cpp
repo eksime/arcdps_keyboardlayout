@@ -43,15 +43,22 @@ arcdps_exports* mod_init()
     arc_exports.sig = 0xFFFA;
     arc_exports.size = sizeof(arcdps_exports);
     arc_exports.out_name = "keyboardlayoutRemover";
-    arc_exports.out_build = "1.0";
+    arc_exports.out_build = "1.0.1";
 
     return &arc_exports;
 }
 
 uintptr_t mod_release()
 {
+    HKL defaultHkl = nullptr;
+    SystemParametersInfo(SPI_GETDEFAULTINPUTLANG, 0, &defaultHkl, 0);
+
     HKL hkl = LoadKeyboardLayout(_T("00000409"), 0);
-    UnloadKeyboardLayout(hkl);
+    if (hkl != defaultHkl)
+    {
+        UnloadKeyboardLayout(hkl);
+    }
+
     return 0;
 }
 
