@@ -3,7 +3,8 @@
 #include <cstdint>
 #include <tchar.h>
 
-typedef struct arcdps_exports {
+typedef struct arcdps_exports
+{
     uintptr_t size;
     uint32_t sig;
     uint32_t imguivers;
@@ -18,10 +19,10 @@ typedef struct arcdps_exports {
     void* options_windows;
 } arcdps_exports;
 
-BOOL APIENTRY DllMain( HMODULE hModule,
-                       DWORD  ul_reason_for_call,
-                       LPVOID lpReserved
-                     )
+BOOL APIENTRY DllMain(
+    HMODULE hModule,
+    DWORD  ul_reason_for_call,
+    LPVOID lpReserved)
 {
     switch (ul_reason_for_call)
     {
@@ -46,7 +47,6 @@ arcdps_exports* mod_init()
 
     return &arc_exports;
 }
-
 
 uintptr_t mod_release()
 {
